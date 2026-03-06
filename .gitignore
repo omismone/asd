@@ -1,0 +1,23 @@
+# VS Code
+.vscode/
+
+# C++ compiled files
+*.o
+*.out
+*.exe
+
+# logs
+*.log
+
+# linux temporary files
+*~
+
+# Windows files
+Thumbs.db
+desktop.ini
+*Zone.Identifier
+
+# macOS files
+.DS_Store
+
+
