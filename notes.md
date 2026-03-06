@@ -397,8 +397,78 @@ int partition(int* arr, int start, int end)
 }
 ```
 
+<br><br><br>
+
+# L5 - Linked Lists
+Abbiamo già visto l'implementazione delle linked lists semplici in **L2**.  
+
+## liste circolari
+
+Aggiungiamo una variante, le **liste circolari**: liste in cui l'ultimo elemento punta al primo. Hanno solo uno scopo didattico, utili per la futura introduzione delle doubly linked list circolari.
+
+Quello che cambia rispetto alle implementazioni delle funzioni delle linked list semplici è che ovviamente l'ultimo elemento è riconosciuto grazie al fatto che punta al primo elemento della lista, e non più a *nullptr* come nelle linked list semplici.
+
+In questo caso l'implementazione della *head_insert* è:
+```cpp
+void head_insert(list& l, int new_value)
+{
+    cell* aux = new cell;
+    aux->payload = new_value;
+
+    if(l == emptyList)
+        aux->next = aux;
+    else
+    {
+        aux->next = l;
+        cell* tmp = l;
+        while(tmp->next != l)
+            tmp = tmp->next;
+        tmp->next = aux;
+    }
+    l = aux;
+}
+```
+
+## liste circolari con sentinella
+Le liste circolari con sentinella aggiungono all'inizio di ogni lista una cella fittizia detta **sentinella** che punta sempre al primo vero elemento della lista.  
+La creazione di una *emptyList* non sarà più una semplice typedef (vedi *"./L5/part1/BasicList.h"*) come prima, sarà:
+```cpp
+void createEmpty(SentinelList& l)
+{
+    cell* sentinel = new cell;
+    sentinel->next = sentinel;
+    l = sentinel;
+}
+```
+In questo modo funzioni come *head_insert* vengono semplificate:
+```cpp
+void head_insert(SentinelList& l, DataType new_value)
+{
+    cell* aux = new cell;
+    aux->payload = new_value;
+    aux->next = l->next; //the second element is set as the one that was after the sentinel
+    l->next = aux; // the first element (the one after the sentinel) is set as the last inserted
+}
+```
+*Nota: il payload della sentinella non viene mai utilizzato: non importa cosa contiene.*
+
+Il prezzo da pagare per avere un inserimento in testa in $\Theta(1)$ è che il costo di un inserimento in coda è in $\Theta(n)$:
+```cpp
+void tailInsert(CircularWithSentinel& list, DataType new_value) {
+	cell* aux = new cell;
+	aux->payload = new_value;
+	aux->next = list;
+
+	cell* tmp = list;
+	while(tmp->next != list)
+		tmp = tmp->next;
+	tmp->next = aux;
+}
+```
+
 # to ask
 - progetto
 - compiti facoltativi
 - quiz online
 - laboratori
+- licenza online
