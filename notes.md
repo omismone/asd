@@ -465,10 +465,11 @@ void tailInsert(CircularWithSentinel& list, DataType new_value) {
 	tmp->next = aux;
 }
 ```
+<br><br><br>
 
-# to ask
-- progetto
-- compiti facoltativi
-- quiz online
-- laboratori
-- licenza online
+# L6 - Doubly Linked Lists
+![doubly linked lists](./images/L6-dll.png)
+
+Ogni cella oltre ad avere un puntatore alla prossima cella della lista ha un puntatore extra alla **precedente** cella della lista.
+
+Il puntatore *NULL* viene usato in fondo per segnalare la fine della lista e in principio per segnalarne l'inizio: il primo elemento ha come puntatore a cella precedente il valore *NULL*.
